@@ -32,26 +32,30 @@ echo '<div class="messages-chat">';
 
 while($row=mysqli_fetch_assoc($result))
 {
+  $content = $row["content"];
+  $timestamp = strtotime($row["created_at"]);
+    $date = date('d-m-Y', $timestamp);
+    $time = date('H:i:s', $timestamp);
+    $created_at = strval($date) . ' ' . strval($time);
   if($row["uname"]==$username and $row["cname"]==$chat_username)
   {
     echo '
     <div class="message text-only">
     <div class="response">
-      <p class="text">'. $row["content"] . '</p>
+      <p class="text">'. $content . '</p>
     </div>
   </div>
-
-  <p class="response-time time"> 15h04</p>
+  <p class="response-time time">'. $created_at . '</p>
     ';
   }
   else
   {
     echo '
     <div class="message text-only">
-    <p class="text">'. $row["content"] .'</p>
+    <p class="text">'. $content .'</p>
   </div>
 
-  <p class="time"> 14h58</p>
+  <p class="time">'. $created_at .'</p>
     ';
   }
 }

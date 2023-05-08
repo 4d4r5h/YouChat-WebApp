@@ -82,6 +82,18 @@ class Socket implements MessageComponentInterface
             die("Error inserting into messages table: " . mysqli_error($conn));
         }
 
+        $sql = "UPDATE chats SET last_message = '$message',
+                last_message_time = CURRENT_TIMESTAMP WHERE (uname = '$from_username' AND
+                cname = '$userName') OR (cname = '$from_username' AND
+                uname = '$userName');";
+        $result = mysqli_query($conn, $sql);
+        if (!$result) { 
+            // echo "<script>document.getElementById('alert').style.display='block';</script>";
+            die("Error updating chats table: " . mysqli_error($conn));
+        }
+
+
+
         // $sql = "INSERT INTO messages
         //     (uname, cname, content, disappearing)
         //     VALUES ('$userName', '$from_username', '$message', false);";
@@ -95,8 +107,10 @@ class Socket implements MessageComponentInterface
             $result = mysqli_query($conn,$sql);
             while($row = mysqli_fetch_assoc($result))
             {
+                $to_send = new \stdClass();
                 $to_send->message = $message;
                 $to_send->from = $from_username;
+                $to_send->date = date('d-m-Y H:i:s', time());
                 $json_to_send = json_encode($to_send);
                 $this->clients[$row["connection_id"]]["connection"]->send($json_to_send);
             }

@@ -22,7 +22,10 @@ while ($row = mysqli_fetch_assoc($chats_result)) {
   if (isset($row["last_message"]))
     $chat_last_message = $row["last_message"];
   if (isset($row["last_message_time"]))
-    $chat_last_message_time = $row["last_message_time"];
+    $timestamp = strtotime($row["last_message_time"]);
+    $date = date('d-m-Y', $timestamp);
+    $time = date('H:i:s', $timestamp);
+    $chat_last_message_time = strval($date) . ' ' . strval($time);
 
   $sql = "SELECT * FROM users WHERE username=" . "'" . $chat_username . "'";
   $users_result = mysqli_query($conn, $sql);
@@ -112,10 +115,10 @@ while ($row = mysqli_fetch_assoc($chats_result)) {
             <div class='online' style='background-color: {$chats[$i]['color']};'></div>
           </div>
           <div class='desc-contact'>
-            <p class='name'>{$chats[$i]['fullname']}</p>
+            <p class='name'><b>{$chats[$i]['fullname']}</b></p>
             <p class='message'>{$chats[$i]['last_message']}</p>
           </div>
-          <div class='timer'>{$chats[$i]['last_message_time']}</div>
+          <div class='timer'><b>{$chats[$i]['last_message_time']}</b></div>
         </div>
           ";
         }
@@ -306,12 +309,24 @@ while ($row = mysqli_fetch_assoc($chats_result)) {
             message: message.value
           }
           socket.send(JSON.stringify(messageObj));
+
+          Date.prototype.today = function () { 
+    return ((this.getDate() < 10)?"0":"") + this.getDate() +"-"+(((this.getMonth()+1) < 10)?"0":"") + (this.getMonth()+1) +"-"+ this.getFullYear();
+}
+
+// For the time now
+Date.prototype.timeNow = function () {
+     return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes() +":"+ ((this.getSeconds() < 10)?"0":"") + this.getSeconds();
+}
           
+          const currentdate = new Date(); 
+const datetime = currentdate.today() + " " + currentdate.timeNow();
+
           const messages_chat = document.querySelector(".messages-chat");
           const text = "<div class='message text-only'> <div class='response'>" +
           "<p class='text'>" +
           message.value
-          + "</p> </div> </div> <p class='response-time time'> 15h04</p>";
+          + "</p> </div> </div> <p class='response-time time'>" + datetime + "</p><br><br>";
           messages_chat.innerHTML+=text;  
 
           message.value = "";
@@ -323,6 +338,7 @@ while ($row = mysqli_fetch_assoc($chats_result)) {
           const json_object = JSON.parse(e.data);
           const message = json_object.message;
           const from = json_object.from;
+          const sent_date = json_object.date;
 
           const messages_chat = document.querySelector(".messages-chat");
           if(!messages_chat)
@@ -333,7 +349,7 @@ while ($row = mysqli_fetch_assoc($chats_result)) {
           {
             const text = "<div class='message text-only'>" + 
           "<p class='text'>" + message + "</p> </div> " +
-          "<p class='time'> 14h58</p>";
+          "<p class='time'>" + sent_date + "</p>";
           messages_chat.innerHTML+=text;
           }
         }
