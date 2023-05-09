@@ -6,6 +6,10 @@
 
 body {
   background: #f6f5f7;
+  background-image: url("Login_img.jpeg");
+  background-repeat: repeat;
+  background-size: 45%;
+  
   display: flex;
   justify-content: center;
   align-items: center;
@@ -45,8 +49,8 @@ a {
 
 button {
   border-radius: 20px;
-  border: 1px solid #ff4b2b;
-  background-color: #ff4b2b;
+  border: 1px solid #0de8e8;
+  
   color: #ffffff;
   font-size: 12px;
   font-weight: bold;
@@ -63,9 +67,21 @@ button:active {
 button:focus {
   outline: none;
 }
-
+button.InternalSignUp
+{
+  background: #0de8e8;
+  background: -webkit-linear-gradient(to right, #008cff, #0de8e8);
+  background: linear-gradient(to right, #008cff, #0de8e8);
+}
+button.ExternalSignIn
+{
+  background: #0de8e8;
+  background: -webkit-linear-gradient(to right, #008cff, #0de8e8);
+  background: linear-gradient(to right, #008cff, #0de8e8);
+}
 button.ghost {
-  background-color: transparent;
+  background-color: rgb(255, 255, 255);
+  color: black;
   border-color: #ffffff;
 }
 
@@ -160,9 +176,9 @@ input {
 }
 
 .overlay {
-  background: #ff416c;
-  background: -webkit-linear-gradient(to right, #ff4b2b, #ff416c);
-  background: linear-gradient(to right, #ff4b2b, #ff416c);
+  background: #0de8e8;
+  background: -webkit-linear-gradient(to right, #008cff, #0de8e8);
+  background: linear-gradient(to right, #008cff, #0de8e8);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;
@@ -243,7 +259,7 @@ footer p {
 }
 
 footer i {
-  color: red;
+  color: #3c97bf;
 }
 
 footer a {
