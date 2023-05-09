@@ -39,7 +39,7 @@ if (isset($_SESSION['is_logged_in'])) {
                 <input type="email" placeholder="Email Address" name="email" required/>
                 <input type="password" placeholder="Password" name="password" required/>
                 <br>
-                <button>Sign Up</button>
+                <button class="InternalSignUp">Sign Up</button>
             </form>
         </div>
         <div class="form-container sign-in-container">
@@ -55,7 +55,7 @@ if (isset($_SESSION['is_logged_in'])) {
                 <input type="text" placeholder="Username" name="username" required/>
                 <input type="password" placeholder="Password" name="password" required/>
                 <a href="#">Forgot your password?</a>
-                <button>Sign In</button>
+                <button class="ExternalSignIn">Sign In</button>
             </form>
         </div>
         <div class="overlay-container">
