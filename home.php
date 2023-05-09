@@ -294,20 +294,36 @@ while ($row = mysqli_fetch_assoc($chats_result)) {
             body: form
           })
 
-          const text = await response.text()
+          const text = await response.text();
 
           section.innerHTML += text;
+
+          const messages_chat = document.querySelector(".messages-chat");
+        if(messages_chat)
+        messages_chat.scrollTop = messages_chat.scrollHeight;
         }
 
         
-        function transmitMessage(username) {
+        function transmitMessage(username, media) {
           const message = document.querySelector('.write-message');
-          // console.log(message)
+          // console.log("HI");
+
+          if((message.value.length===0) && (media==="NULL"))
+          return;
+          // console.log(media);
+          // console.log(message.value.length);
+
+          
           const messageObj = {
             type: 1,
             username, // user that will receive message
-            message: message.value
-          }
+            message: message.value,
+            media: media
+          };
+
+          // console.log(username);
+          console.log(media);
+         
           socket.send(JSON.stringify(messageObj));
 
           Date.prototype.today = function () { 
@@ -323,11 +339,16 @@ Date.prototype.timeNow = function () {
 const datetime = currentdate.today() + " " + currentdate.timeNow();
 
           const messages_chat = document.querySelector(".messages-chat");
-          const text = "<div class='message text-only'> <div class='response'>" +
-          "<p class='text'>" +
-          message.value
-          + "</p> </div> </div> <p class='response-time time'>" + datetime + "</p><br><br>";
-          messages_chat.innerHTML+=text;  
+          var text = "<div class='message text-only'> <div class='response'>";
+          if(message.value.length>0)
+          text+="<p class='text'>" + message.value + "</p>";
+          if(media!=="NULL")
+          text+="<img class='sent_data' src='data:image;base64," + media + "'/>";
+          // text+="<object class='sent_data' data='data:image;base64," + media + "'></object>";
+
+          text+="</div> </div> <p class='response-time time'>" + datetime + "</p><br><br>";
+          messages_chat.innerHTML+=text;
+          messages_chat.scrollTop = messages_chat.scrollHeight;  
 
           message.value = "";
         }
@@ -337,6 +358,7 @@ const datetime = currentdate.today() + " " + currentdate.timeNow();
           // console.log(e);
           const json_object = JSON.parse(e.data);
           const message = json_object.message;
+          const media = json_object.media;
           const from = json_object.from;
           const sent_date = json_object.date;
 
@@ -347,15 +369,57 @@ const datetime = currentdate.today() + " " + currentdate.timeNow();
           }
           else
           {
-            const text = "<div class='message text-only'>" + 
-          "<p class='text'>" + message + "</p> </div> " +
+            var text = "<div class='message text-only'> <div>"; 
+          if(message.length>0)
+            text+="<p class='text'>" + message + "</p> ";
+          if(media!=="NULL")
+          text+="<img class='receive_data' src='data:image;base64," + media + "'/>";
+
+          text+=" </div> </div>" +
           "<p class='time'>" + sent_date + "</p>";
           messages_chat.innerHTML+=text;
+          messages_chat.scrollTop = messages_chat.scrollHeight;
           }
+        }
+
+
+        const sendMessage = async (chat_username) => {
+
+          const form = new FormData();
+          const fileField = document.querySelector('input[type="file"]');
+          form.append("file", fileField.files[0]);
+
+          const response = await fetch('send_file.php', {
+            method: "POST",
+            // credentials: "include",
+            body: form
+          });
+
+          media = await response.text();
+
+          transmitMessage(chat_username, media);
+          fileField.value="";
+        }
+
+        const exportChats = async (chat_username) => {
+
+          const form = new FormData();
+          form.append("cname", chat_username);
+
+          const response = await fetch('export_chats.php', {
+            method: "POST",
+            // credentials: "include",
+            body: form
+          });
+
+          media = await response.text();
+
+          window.alert(chat_username + ".txt downloaded successfully.");
         }
       </script>
     </div>
   </div>
+
 </body>
 
 </html>

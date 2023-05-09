@@ -264,6 +264,7 @@ body {
   background-color: #f6f6f6;
   padding: 15px;
   border-radius: 12px;
+  /* display: inline-block; */
 }
 
 .text-only {
@@ -290,6 +291,21 @@ body {
 
 .response .text {
   background-color: #e3effd !important;
+}
+
+.sent_data {
+  float: right;
+  max-width: 50%;;
+  max-height: 50%;
+  margin: 0 35px;
+  padding: 15px;
+}
+
+.receive_data {
+  max-width: 50%;;
+  max-height: 50%;
+  margin: 0 35px;
+  padding: 15px;
 }
 
 .footer-chat {

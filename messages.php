@@ -21,8 +21,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 echo "<div class='header-chat'>
 <i class='icon fa fa-user-o' aria-hidden='true'></i>
 <p class='name'><b>{$chat_fullname}</b> ({$chat_username})</p>
-<i class='icon clickable fa fa-ellipsis-h right' aria-hidden='true'></i>
-</div>";
+<i class='icon clickable fa fa-download right' aria-hidden='true' onclick='exportChats(\"" . $chat_username . "\")';></i> </div>";
 
 $sql = "SELECT * FROM messages WHERE (uname = '{$username}' AND cname = '{$chat_username}')
 OR (uname = '{$chat_username}' AND cname = '{$username}')";
@@ -33,6 +32,7 @@ echo '<div class="messages-chat">';
 while($row=mysqli_fetch_assoc($result))
 {
   $content = $row["content"];
+  $media = $row["media"];
   $timestamp = strtotime($row["created_at"]);
     $date = date('d-m-Y', $timestamp);
     $time = date('H:i:s', $timestamp);
@@ -41,20 +41,27 @@ while($row=mysqli_fetch_assoc($result))
   {
     echo '
     <div class="message text-only">
-    <div class="response">
-      <p class="text">'. $content . '</p>
-    </div>
-  </div>
-  <p class="response-time time">'. $created_at . '</p>
+    <div class="response">';
+    if(!empty($content))
+      echo '<p class="text">'. $content . '</p>';
+    if(isset($media))
+      echo '<img class="sent_data" src="data:image;base64,' . $media . '"/>';
+    
+      echo ' </div> </div>
+  <p class="response-time time">'. $created_at . '</p> <br> <br>
     ';
   }
   else
   {
     echo '
     <div class="message text-only">
-    <p class="text">'. $content .'</p>
-  </div>
-
+    <div>';
+    if(!empty($content))
+    echo '<p class="text">'. $content .'</p>';
+    if(isset($media))
+    echo '<img class="receive_data" src="data:image;base64,' . $media . '"/>';
+    
+    echo ' </div> </div>
   <p class="time">'. $created_at .'</p>
     ';
   }
@@ -62,16 +69,45 @@ while($row=mysqli_fetch_assoc($result))
 
 echo '</div>';
 
+// echo '
+// <form action="home.php" method="POST" enctype="multipart/form-data">
+// <div class="footer-chat">
+// <label>
+//   <i class="icon fa fa-file clickable" style="font-size:25pt;" aria-hidden="true">
+//   <input type="file" name="file" style="display:none">
+//   </i>
+// </label>
+// <input type="text" name="chat_username" value="' . $chat_username . '" style="display:none"></input>
+//   <input type="text" class="write-message" placeholder="Type your message here"></input>
+//   <label>
+//   <i class="icon send fa fa-paper-plane-o clickable" style="bottom:20px;" aria-hidden="true">
+//   <button type="submit" style="display:none"></button>
+//   </i>
+//   </label>
+// </div>
+// </form>
+// ';
+
 echo '
 <form>
 <div class="footer-chat">
-  <i class="icon fa fa-smile-o clickable" style="font-size:25pt;" aria-hidden="true"></i>
+<label>
+  <i class="icon fa fa-file clickable" style="font-size:25pt;" aria-hidden="true">
+  <input type="file" name="file" style="display:none">
+  </i>
+</label>
   <input type="text" class="write-message" placeholder="Type your message here"></input>
-  <i class="icon send fa fa-paper-plane-o clickable" aria-hidden="true" onclick="transmitMessage(\'' . $chat_username . '\')"></i>
+  
+  <i class="icon send fa fa-paper-plane-o clickable" aria-hidden="true" onclick="sendMessage(\'' . $chat_username . '\')"></i>
+
 </div>
+
 ';
 
+// <i class="icon send fa fa-paper-plane-o clickable" aria-hidden="true" onclick="transmitMessage(\'' . $chat_username . '\')">
+//   </i>
 
+// <i class="icon send fa fa-paper-plane-o clickable" onclick="sendMessage("'. $chat_username .'")" aria-hidden="true">
 //   <div class="message">
 //     <div class="photo" style="background-image: url(https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80);">
 //       <div class="online"></div>

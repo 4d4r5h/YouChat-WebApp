@@ -68,14 +68,27 @@ class Socket implements MessageComponentInterface
         {
 
             $message = $json->{"message"};
+            $media = $json->{"media"};
 
             $from_username = $this->clients[$from->resourceId]["username"];
+            // echo $media . " HI";
 
             // echo $from_username . " " . $userName;
 
-            $sql = "INSERT INTO messages
+            if($media=="NULL")
+            {
+                
+                $sql = "INSERT INTO messages
             (uname, cname, content, disappearing)
             VALUES ('$from_username', '$userName', '$message', false);";
+            }
+            else
+            {
+                $sql = "INSERT INTO messages
+            (uname, cname, content, media, disappearing)
+            VALUES ('$from_username', '$userName', '$message', '$media', false);";
+            }
+
         $result = mysqli_query($conn, $sql);
         if (!$result) { 
             // echo "<script>document.getElementById('alert').style.display='block';</script>";
@@ -109,9 +122,11 @@ class Socket implements MessageComponentInterface
             {
                 $to_send = new \stdClass();
                 $to_send->message = $message;
+                $to_send->media = $media;
                 $to_send->from = $from_username;
                 $to_send->date = date('d-m-Y H:i:s', time());
                 $json_to_send = json_encode($to_send);
+
                 $this->clients[$row["connection_id"]]["connection"]->send($json_to_send);
             }
         }
