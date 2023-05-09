@@ -1,0 +1,175 @@
+body {
+    margin-top: 20px;
+    background-image: url("Login_img.jpeg");
+  background-repeat: repeat;
+  background-size: 45%;
+  
+}
+.card-body
+{
+  border-radius: 5px;
+}
+.container{
+    margin-top:20px;
+}
+img{
+  position: relative;
+  left: 20px;
+  top:20px;
+  border:2px solid black;
+}
+.e-profile
+{
+  border: 2px solid rgb(255, 255, 255);
+}
+.mt-3
+{
+  position: relative;
+  top:20px;
+}
+#profile_picture
+{
+  position: relative;
+  margin-left: 45px;
+  margin-bottom: 10px;
+  width: 150px;
+}
+.mx-auto
+{
+  position: relative;
+  margin-left: 45px;
+  
+}
+.form-group{
+margin: 0 5px 0 5px;
+align-items: center;
+color: rgb(0, 0, 0);
+
+  
+}
+.form-control
+{
+  width:20px;
+}
+
+.text-center.text-sm-left.mb-2.mb-sm-0
+{
+  
+  align-items: center;
+  color:black;
+  border: 2px solid black;
+  border-radius: 5px;
+  position: relative;
+  left: 0px;
+  
+  margin-right: 5px;
+  width:100%;
+  bottom: 0px;
+  top: 5px;
+  
+  
+}
+h4
+{
+  position: relative;
+  left: 10px;
+  font-size: 50px;
+  
+}
+p{
+  position: relative;
+  left: 10px;
+  
+}
+.text-muted
+{
+  position: relative;
+  left: 10px;
+  font-size: 15px;
+}
+.col.d-flex.justify-content-end
+{
+  position: absolute;
+  bottom:10px;
+}
+
+button.btn.btn-primary
+{
+  color: black;
+  border-radius: 5px;
+  background-color: rgb(255, 255, 255);
+  border-color: rgb(255, 255, 255);
+  
+}
+#Change_pic
+{
+  position: relative;
+  margin-left:20px;
+}
+.mb-2
+{
+  position: relative;
+  left: 270px;
+  
+}
+.col-12.col-sm-6.mb-3
+{
+  position: relative;
+  left: 10px;
+  top:20px;
+  width:100%;
+ 
+}
+.tab-content.pt3
+{
+  width: 100%;
+   border: 2px solid black;
+}
+.tab-pane.active
+{
+  
+  position: relative;
+ 
+  width: 100%;
+  border: 2px solid black;
+ 
+}
+.card-body
+{
+  background: #ffffff;
+ 
+}
+small
+{
+  color: rgb(0, 0, 0);
+}
+.header
+{
+  background: #0de8e8;
+  background: -webkit-linear-gradient(to right, #008cff, #0de8e8);
+  background: linear-gradient(to right, #008cff, #0de8e8);
+   border-radius:5px ;
+   width:100%;
+}
+
+#logout{
+  background: #0de8e8;
+  background: -webkit-linear-gradient(to right, #008cff, #0de8e8);
+  background: linear-gradient(to right, #008cff, #0de8e8);
+}
+#Profile
+{
+  background: #0de8e8;
+  background: -webkit-linear-gradient(to right, #008cff, #0de8e8);
+  background: linear-gradient(to right, #008cff, #0de8e8);
+}
+#Home{
+  background: #0de8e8;
+  background: -webkit-linear-gradient(to right, #008cff, #0de8e8);
+  background: linear-gradient(to right, #008cff, #0de8e8);
+}
+.btn.btn-block.btn-secondary
+{
+  background-color: #ffffff;
+  color: black;
+}
