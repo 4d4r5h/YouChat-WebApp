@@ -70,4 +70,19 @@ if (!mysqli_query($conn, $sql)) {
     die("Error creating table: " . mysqli_error($conn));
 }
 
+$sql = "CREATE TABLE IF NOT EXISTS global_messages(
+    id INT AUTO_INCREMENT,
+    uname VARCHAR(63),
+    content VARCHAR(255),
+    media MEDIUMBLOB,
+    created_at TIMESTAMP,
+    disappearing BOOLEAN,
+    PRIMARY KEY (id),
+    FOREIGN KEY (uname) REFERENCES users(username)
+)";
+
+if (!mysqli_query($conn, $sql)) {
+    die("Error creating table: " . mysqli_error($conn));
+}
+
 ?>

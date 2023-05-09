@@ -22,10 +22,12 @@ while ($row = mysqli_fetch_assoc($chats_result)) {
   if (isset($row["last_message"]))
     $chat_last_message = $row["last_message"];
   if (isset($row["last_message_time"]))
+  {
     $timestamp = strtotime($row["last_message_time"]);
     $date = date('d-m-Y', $timestamp);
     $time = date('H:i:s', $timestamp);
     $chat_last_message_time = strval($date) . ' ' . strval($time);
+  }
 
   $sql = "SELECT * FROM users WHERE username=" . "'" . $chat_username . "'";
   $users_result = mysqli_query($conn, $sql);
@@ -75,19 +77,19 @@ while ($row = mysqli_fetch_assoc($chats_result)) {
             <i class="fa fa-home" aria-hidden="true"></i>
           </li>
           <li class="item">
-            <i class="fa fa-user" aria-hidden="true"></i>
+            <i class="fa fa-user" title="Profile"  onclick="window.location.href='profile.php'" aria-hidden="true"></i>
           </li>
           <li class="item">
-            <i class="fa fa-pencil" aria-hidden="true"></i>
-          </li>
-          <li class="item item-active">
-            <i class="fa fa-commenting" aria-hidden="true"></i>
+            <i class="fa fa-pencil" title="Edit Profile"  onclick="window.location.href='edit_profile.php'" aria-hidden="true"></i>
           </li>
           <li class="item">
-            <i class="fa fa-file" aria-hidden="true"></i>
+            <i class="fa fa-globe" title="Global Chat" onclick="getGlobalChat()" aria-hidden="true"></i>
           </li>
           <li class="item">
-            <i class="fa fa-cog" aria-hidden="true"></i>
+            <i class="fa fa-adjust" title="Dark Mode" aria-hidden="true"></i>
+          </li>
+          <li class="item">
+            <i class="fa fa-sign-out" title="Logout"  onclick="window.location.href='logout.php'" aria-hidden="true"></i>
           </li>
         </ul>
       </nav>
@@ -282,6 +284,27 @@ while ($row = mysqli_fetch_assoc($chats_result)) {
       <script>
         const section = document.querySelector('.chat');
 
+        const getGlobalChat = async () => {
+          section.innerHTML = ""
+
+          // const form = new FormData()
+          // form.append("chat_username", username)
+
+          const response = await fetch('global_messages.php', {
+            method: "POST",
+            // credentials: "include",
+            // body: form
+          })
+
+          const text = await response.text();
+
+          section.innerHTML += text;
+
+          const messages_chat = document.querySelector(".global-messages-chat");
+        if(messages_chat)
+        messages_chat.scrollTop = messages_chat.scrollHeight;
+        }
+
         const getData = async (username) => {
           section.innerHTML = ""
 
@@ -338,7 +361,9 @@ Date.prototype.timeNow = function () {
           const currentdate = new Date(); 
 const datetime = currentdate.today() + " " + currentdate.timeNow();
 
-          const messages_chat = document.querySelector(".messages-chat");
+          var messages_chat = document.querySelector(".messages-chat");
+          if(!messages_chat)
+          messages_chat = document.querySelector(".global-messages-chat");
           var text = "<div class='message text-only'> <div class='response'>";
           if(message.value.length>0)
           text+="<p class='text'>" + message.value + "</p>";
@@ -357,18 +382,47 @@ const datetime = currentdate.today() + " " + currentdate.timeNow();
           // alert(e.data);
           // console.log(e);
           const json_object = JSON.parse(e.data);
-          const message = json_object.message;
+          var message = json_object.message;
           const media = json_object.media;
           const from = json_object.from;
           const sent_date = json_object.date;
+          const is_global = json_object.is_global;
 
-          const messages_chat = document.querySelector(".messages-chat");
+          
+
+          // console.log(is_global)
+
+          if(is_global==="1")
+          {
+            const messages_chat = document.querySelector(".global-messages-chat");
+          if(messages_chat)
+          {
+            // console.log("HI");
+            var text = "<div class='message text-only'> <div>"; 
+          if(message.length>0)
+            text+="<p class='text'><b>" + from + " : </b>" + message + "</p> ";
+            else
+            text+="<p class='text'><b>" + from + " sent an image.</b></p>";
+          if(media!=="NULL")
+          text+="<img class='receive_data' src='data:image;base64," + media + "'/>";
+
+          text+=" </div> </div>" +
+          "<p class='time'>" + sent_date + "</p>";
+          messages_chat.innerHTML+=text;
+          messages_chat.scrollTop = messages_chat.scrollHeight;
+          }
+          }
+          else
+          {
+
+            const messages_chat = document.querySelector(".messages-chat");
           if(!messages_chat)
           {
             alert(from + " sent a message!");
           }
           else
           {
+            // console.log("HI");
             var text = "<div class='message text-only'> <div>"; 
           if(message.length>0)
             text+="<p class='text'>" + message + "</p> ";
@@ -379,6 +433,8 @@ const datetime = currentdate.today() + " " + currentdate.timeNow();
           "<p class='time'>" + sent_date + "</p>";
           messages_chat.innerHTML+=text;
           messages_chat.scrollTop = messages_chat.scrollHeight;
+          }
+
           }
         }
 

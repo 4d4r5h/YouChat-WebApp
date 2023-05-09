@@ -75,6 +75,50 @@ class Socket implements MessageComponentInterface
 
             // echo $from_username . " " . $userName;
 
+
+            if($from_username==$userName) // global chat
+            {echo "g";
+                if($media=="NULL")
+            {
+                echo "i";
+                
+                $sql = "INSERT INTO global_messages
+            (uname, content, disappearing)
+            VALUES ('$from_username', '$message', false);";
+            }
+            else
+            {
+                // echo $media;
+                $sql = "INSERT INTO global_messages
+            (uname, content, media, disappearing)
+            VALUES ('$from_username', '$message', '$media', false);";
+            }
+
+        $result = mysqli_query($conn, $sql);
+        if (!$result) { 
+            // echo "<script>document.getElementById('alert').style.display='block';</script>";
+            die("Error inserting into global_messages table: " . mysqli_error($conn));
+        }
+
+
+        $sql = "SELECT * from users WHERE username != '" . $userName . "'";
+            $result = mysqli_query($conn,$sql);
+            while($row = mysqli_fetch_assoc($result))
+            {
+                $to_send = new \stdClass();
+                $to_send->message = $message;
+                $to_send->media = $media;
+                $to_send->from = $from_username;
+                $to_send->date = date('d-m-Y H:i:s', time());
+                $to_send->is_global = '1';
+                $json_to_send = json_encode($to_send);
+                if(isset($row["connection_id"]))
+                $this->clients[$row["connection_id"]]["connection"]->send($json_to_send);
+            }
+
+                return;
+            }
+
             if($media=="NULL")
             {
                 
@@ -95,7 +139,10 @@ class Socket implements MessageComponentInterface
             die("Error inserting into messages table: " . mysqli_error($conn));
         }
 
-        $sql = "UPDATE chats SET last_message = '$message',
+        $new_message = $message;
+        if(empty($new_message))
+            $new_message = "sent an image";
+        $sql = "UPDATE chats SET last_message = '$new_message',
                 last_message_time = CURRENT_TIMESTAMP WHERE (uname = '$from_username' AND
                 cname = '$userName') OR (cname = '$from_username' AND
                 uname = '$userName');";
@@ -125,8 +172,9 @@ class Socket implements MessageComponentInterface
                 $to_send->media = $media;
                 $to_send->from = $from_username;
                 $to_send->date = date('d-m-Y H:i:s', time());
+                $to_send->is_global = '0';
                 $json_to_send = json_encode($to_send);
-
+                if(isset($row["connection_id"]))
                 $this->clients[$row["connection_id"]]["connection"]->send($json_to_send);
             }
         }

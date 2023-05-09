@@ -9,25 +9,17 @@ if (!isset($_SESSION['is_logged_in'])) {
 include 'dbconnect.php';
 include 'keep_online.php';
 
-$chat_username = $_POST["chat_username"];
 $username = $_SESSION["user_logged_in"];
-$sql = "SELECT * FROM users WHERE username=" . "'" . $chat_username . "'";
-$result = mysqli_query($conn, $sql);
-
-while ($row = mysqli_fetch_assoc($result)) {
-  $chat_fullname = strtoupper($row["fullname"]);
-}
 
 echo "<div class='header-chat'>
-<i class='icon fa fa-user-o' aria-hidden='true'></i>
-<p class='name'><b>{$chat_fullname}</b> ({$chat_username})</p>
-<i class='icon clickable fa fa-download right' aria-hidden='true' onclick='exportChats(\"" . $chat_username . "\")';></i> </div>";
+<i class='icon fa fa-globe' aria-hidden='true'></i>
+<p class='name'><b>GLOBAL CHAT</b></p></div>";
+// <i class='icon clickable fa fa-download right' aria-hidden='true' onclick='exportChats(\"" . $chat_username . "\")';></i> </div>";
 
-$sql = "SELECT * FROM messages WHERE (cname = '{$username}' AND uname = '{$chat_username}')
-OR (cname = '{$chat_username}' AND uname = '{$username}') ORDER BY id";
+$sql = "SELECT * FROM global_messages  ORDER BY id";
 $result = mysqli_query($conn, $sql);
 
-echo '<div class="messages-chat">';
+echo '<div class="global-messages-chat">';
 
 while($row=mysqli_fetch_assoc($result))
 {
@@ -37,7 +29,7 @@ while($row=mysqli_fetch_assoc($result))
     $date = date('d-m-Y', $timestamp);
     $time = date('H:i:s', $timestamp);
     $created_at = strval($date) . ' ' . strval($time);
-  if($row["uname"]==$username and $row["cname"]==$chat_username)
+  if($row["uname"]==$username)
   {
     echo '
     <div class="message text-only">
@@ -57,7 +49,10 @@ while($row=mysqli_fetch_assoc($result))
     <div class="message text-only">
     <div>';
     if(!empty($content))
-    echo '<p class="text">'. $content .'</p>';
+    echo '<p class="text"><b>'. $row["uname"] . ' : </b>'. $content .'</p>';
+    else
+    echo '<p class="text"><b>'. $row["uname"] . ' sent an image.</b></p>';
+
     if(isset($media))
     echo '<img class="receive_data" src="data:image;base64,' . $media . '"/>';
     
@@ -98,7 +93,7 @@ echo '
 </label>
   <input type="text" class="write-message" placeholder="Type your message here"></input>
   
-  <i class="icon send fa fa-paper-plane-o clickable" aria-hidden="true" onclick="sendMessage(\'' . $chat_username . '\')"></i>
+  <i class="icon send fa fa-paper-plane-o clickable" aria-hidden="true" onclick="sendMessage(\'' . $username . '\')"></i>
 
 </div>
 

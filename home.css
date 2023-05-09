@@ -267,6 +267,41 @@ body {
   /* display: inline-block; */
 }
 
+
+.chat .global-messages-chat {
+  overflow-y: auto;
+  flex-grow: 1;
+  padding: 25px 35px;
+}
+
+.chat .global-messages-chat .message {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.chat .global-messages-chat .message .photo {
+  display: block;
+  width: 45px;
+  height: 45px;
+  background: #e6e7ed;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.chat .global-messages-chat .text {
+  margin: 0 35px;
+  background-color: #f6f6f6;
+  padding: 15px;
+  border-radius: 12px;
+  /* display: inline-block; */
+}
+
+
+
 .text-only {
   margin-left: 45px;
 }
