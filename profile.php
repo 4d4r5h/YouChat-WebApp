@@ -68,19 +68,29 @@ if($username == "NULL")
 
 <body>
     <div class="card-container">
-        <!-- <span class="pro">PRO</span> -->
-        <img class="round" src="<?php echo $image ?>" alt="user" />
-	<h3><i class="fa-solid fa-circle fa-xs" style="color: <?php echo $color ?>;"></i>  <?php echo $fullname ?></h3>
-	<h6><?php echo $username ?></h6>
-	<p><?php echo $date . " - " . $time ?></p>
+    <!-- <span class="pro">PRO</span> -->
+    <q1> <i class="fa fa-user" aria-hidden="true"></i> <?php echo "Profile" ?> </q1><br> 
+    <div class="pic-name">
+    <img class="round" src="<?php echo $image ?>" alt="user" width="75" height="75" style="opacity: 1; border: 10 solid black;" />
+	<div class="dat-name">
+        
+            <h3> <?php echo $fullname ?> <i class="fa-solid fa-circle fa-xs" style="color: <?php echo $color ?>;"></i>  </h3>
+
+            <!--<h6><?php echo $username ?></h6> -->
+	    <p><?php echo $date . " - " . $time ?></p>
+    </div>
+    </div>
+
         <div class="buttons">
             <form action="add_chat.php" method="POST" style="display: inline;">
-            <button class="primary" type="submit" name="to_username" value="<?php echo $username; ?>" <?php if($username == $_SESSION["user_logged_in"]) echo "disabled"; ?>>
-                Message
+            <button class="primary" type="submit" name="to_username" value="<?php echo $username; ?>" <?php if($username == $_SESSION["user_logged_in"]) echo "disabled"; ?> >
+            <i class="fa fa-home" aria-hidden="true"></i>
+            <?php echo "Message"?>        
             </button>
             </form>
             <button class="primary ghost" onclick="window.location.href='edit_profile.php'" <?php if($username != $_SESSION["user_logged_in"]) echo "disabled"; ?>>
-                Edit Profile
+            <i class="fa fa-edit" aria-hidden="true"></i>
+            <?php echo "Edit Profile"?> 
             </button>
             </div>
         <div class="skills">
