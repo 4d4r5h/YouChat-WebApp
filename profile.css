@@ -1,11 +1,14 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat");
+@import url("https://fonts.googleapis.com/css?family=Fira Sans Extra Condensed")
 
 * {
   box-sizing: border-box;
 }
 
 body {
-  background-color: #28223f;
+  background-image: url("Login_img.jpeg");
+  background-repeat: repeat;
+  background-size: 45%;
   font-family: Montserrat, sans-serif;
 
   display: flex;
@@ -16,10 +19,17 @@ body {
   min-height: 100vh;
   margin: 0;
 }
+q1
+{
+  align-items: center;
+  font-size: 30px;
+  font-style:'Fira Sans Extra Condensed';
 
+}
 h3 {
-  margin: 10px 0;
+  margin-top: 30px;
   font-size: 20px;
+  margin-left: 20px;
 }
 
 h6 {
@@ -31,18 +41,37 @@ h6 {
 p {
   font-size: 15px;
   line-height: 10px;
+  margin-left:15px ;
 }
-
+.pic-name{
+  display: flex;
+  position: relative;
+  top:10px;
+  left:10px;
+  align-items: center;
+  
+ 
+}
+.date-name{
+  position: relative;
+  top:10px;
+  border:10px solid black;
+  
+}
 .card-container {
-  background-color: #231e39;
-  border-radius: 5px;
+  background: #0db9e8;
+  background: -webkit-linear-gradient(to right, #008cff, #0de8e8);
+  background: linear-gradient(to right, #008cff, #0de8e8);
+  border-radius: 7.5px;
   box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
-  color: #b3b8cd;
+  color: #000000;
   padding-top: 30px;
   position: relative;
   width: 350px;
-  max-width: 100%;
+  /*max-width: 100%;*/
+  height: 65vh;
   text-align: center;
+  opacity:0.9;
 }
 
 .card-container .pro {
@@ -58,21 +87,24 @@ p {
 }
 
 .card-container .round {
-  border: 1px solid #03bfcb;
+  border: 1px solid #020202;
   border-radius: 50%;
-  padding: 7px;
-  max-width: 75%;;
-  max-height: 75%;
-  /* object-fit: contain; */
+  padding: 17px;
+  max-width: 75;
+  max-height: 75;
+  object-fit: contain; 
 }
 
 .card-container .buttons {
-    margin: 20px 0;
+    margin: 40px 0;
+    position: relative;
+    top:50x;
+    opacity: 1;
 }
 
 button.primary {
-  background-color: #03bfcb;
-  border: 1px solid #03bfcb;
+  background-color: #ffffff;
+  border: 1px solid #ffffff;
   border-radius: 3px;
   color: #231e39;
   font-family: Montserrat, sans-serif;
@@ -81,15 +113,27 @@ button.primary {
 }
 
 button.primary.ghost {
-  background-color: transparent;
-  color: #02899c;
+  background-color: #ffffff;
+  border: 1px solid #ffffff;
+  border-radius: 3px;
+  color: #231e39;
+  font-family: Montserrat, sans-serif;
+  font-weight: 500;
+  padding: 10px 25px;
 }
 
 .skills {
-  background-color: #1f1a36;
+  background-color: #ffffff;
   text-align: left;
   padding: 15px;
   margin-top: 30px;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+  opacity:1;
+  
+  box-shadow: 15px black;
 }
 
 .skills ul {
@@ -99,12 +143,12 @@ button.primary.ghost {
 }
 
 .skills ul li {
-  border: 1px solid #2d2747;
-  border-radius: 2px;
+  /*border: 1px  #2d2747;
+  border-radius: 2px;*/
   display: inline-block;
   font-size: 15px;
-  margin: 0 7px 7px 0;
-  padding: 7px;
+  margin: 0 5px 5px 0;
+  padding: 5px;
 }
 
 footer {
