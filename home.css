@@ -1,6 +1,7 @@
 body {
   padding: 1%;
   background-color: #f5f5f5;
+  
 }
 
 .searchButton {
@@ -16,6 +17,8 @@ body {
 .container {
   padding: 0;
   background-color: #fff;
+
+ 
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   height: 700px;
 }
@@ -199,9 +202,13 @@ body {
 
   display: flex;
   flex-direction: column;
-
+  background-image: url("Login_img.jpeg");
+  background-repeat: repeat;
+  background-size: 50%;
+  background-blend-mode: lighten;
   max-height: 700px;
 }
+
 .row { 
   height: 100%;
 }
@@ -267,41 +274,6 @@ body {
   /* display: inline-block; */
 }
 
-
-.chat .global-messages-chat {
-  overflow-y: auto;
-  flex-grow: 1;
-  padding: 25px 35px;
-}
-
-.chat .global-messages-chat .message {
-  display: flex;
-  align-items: center;
-  margin-bottom: 8px;
-}
-
-.chat .global-messages-chat .message .photo {
-  display: block;
-  width: 45px;
-  height: 45px;
-  background: #e6e7ed;
-  -moz-border-radius: 50px;
-  -webkit-border-radius: 50px;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-
-.chat .global-messages-chat .text {
-  margin: 0 35px;
-  background-color: #f6f6f6;
-  padding: 15px;
-  border-radius: 12px;
-  /* display: inline-block; */
-}
-
-
-
 .text-only {
   margin-left: 45px;
 }
@@ -350,7 +322,7 @@ body {
   align-items: center;
   /* position: absolute;
   bottom: 0; */
-  background-color: transparent;
+  background-color: white;
   border-top: 2px solid #eee;
 }
 
@@ -377,7 +349,11 @@ body {
   font-size: 13pt;
   color: #515151;
 }
-
+p.text{
+  background: rgb(158, 27, 22);
+  
+ 
+}
 .chat .footer-chat .right {
   position: absolute;
   right: 40px;
