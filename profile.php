@@ -82,12 +82,12 @@ if($username == "NULL")
     </div>
 
         <div class="buttons">
-            <form action="add_chat.php" method="POST" style="display: inline;">
-            <button class="primary" type="submit" name="to_username" value="<?php echo $username; ?>" <?php if($username == $_SESSION["user_logged_in"]) echo "disabled"; ?> >
+            <!--<form action="add_chat.php" method="POST" style="display: inline;">-->
+            <button class="primary" onclick="window.location.href='home.php'"   <?php if($username != $_SESSION["user_logged_in"]) echo "disabled"; ?> >
             <i class="fa fa-home" aria-hidden="true"></i>
             <?php echo "Message"?>        
             </button>
-            </form>
+            <!--</form>-->
             <button class="primary ghost" onclick="window.location.href='edit_profile.php'" <?php if($username != $_SESSION["user_logged_in"]) echo "disabled"; ?>>
             <i class="fa fa-edit" aria-hidden="true"></i>
             <?php echo "Edit Profile"?> 
