@@ -86,7 +86,7 @@ while ($row = mysqli_fetch_assoc($chats_result)) {
             <i class="fa fa-globe" title="Global Chat" onclick="getGlobalChat()" aria-hidden="true"></i>
           </li>
           <li class="item">
-            <i class="fa fa-adjust" title="Dark Mode" aria-hidden="true"></i>
+            <i class="fa fa-adjust" title="Dark Mode" onclick="switchMode()" aria-hidden="true"></i>
           </li>
           <li class="item">
             <i class="fa fa-sign-out" title="Logout"  onclick="window.location.href='logout.php'" aria-hidden="true"></i>
@@ -471,6 +471,48 @@ const datetime = currentdate.today() + " " + currentdate.timeNow();
           media = await response.text();
 
           window.alert(chat_username + ".txt downloaded successfully.");
+        }
+
+        function switchMode() {
+          var body = document.body;
+          if(body.style.background=="black") {
+          body.style.background="white";
+        }
+          else {
+            body.style.background="black";
+          }
+
+          var container = document.querySelector(".container");
+          if(container.style.background=="black") {
+          container.style.background="white";
+        }
+          else {
+            container.style.background="black";
+          }
+
+          var chat = document.querySelector(".chat");
+          if(chat.style.background=="black") {
+          chat.style.background="white";
+        }
+          else {
+            chat.style.background="black";
+          }
+
+          var discussions = document.querySelector(".discussions");
+          if(discussions.style.background=="black") {
+            discussions.style.background="white";
+        }
+          else {
+            discussions.style.background="black";
+          }
+
+          var discussionSearch = document.querySelector(".discussion.search");
+          if(discussionSearch.style.background=="black") {
+            discussionSearch.style.background="white";
+        }
+          else {
+            discussionSearch.style.background="black";
+          }
         }
       </script>
     </div>
