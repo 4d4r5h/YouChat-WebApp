@@ -84,5 +84,15 @@ $sql = "CREATE TABLE IF NOT EXISTS global_messages(
 if (!mysqli_query($conn, $sql)) {
     die("Error creating table: " . mysqli_error($conn));
 }
+$sql = "CREATE TABLE IF NOT EXISTS chatbot(
+    id INT AUTO_INCREMENT, 
+    queries varchar(300),
+    replies varchar(300),
+    primary key(id)
+)";
+
+if (!mysqli_query($conn, $sql)) {
+    die("Error creating table: " . mysqli_error($conn));
+}
 
 ?>

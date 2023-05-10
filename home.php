@@ -2,7 +2,7 @@
 session_start();
 if (!isset($_SESSION['is_logged_in'])) {
   echo "<script> window.alert('You are not logged in.'); 
-    window.location='login.php'; </script>";
+    window.location='index.php'; </script>";
   exit();
 }
 
@@ -84,6 +84,9 @@ while ($row = mysqli_fetch_assoc($chats_result)) {
           </li>
           <li class="item">
             <i class="fa fa-globe" title="Global Chat" onclick="getGlobalChat()" aria-hidden="true"></i>
+          </li>
+          <li class="item">
+            <i class="fa fa-commenting" title="Chat Bot" onclick="window.location.href='bot.php'" aria-hidden="true"></i>
           </li>
           <li class="item">
             <i class="fa fa-adjust" title="Dark Mode" onclick="switchMode()" aria-hidden="true"></i>
@@ -281,6 +284,7 @@ while ($row = mysqli_fetch_assoc($chats_result)) {
       </div>
       </form> -->
       </section>
+      
       <script>
         const section = document.querySelector('.chat');
 
@@ -472,7 +476,6 @@ const datetime = currentdate.today() + " " + currentdate.timeNow();
 
           window.alert(chat_username + ".txt downloaded successfully.");
         }
-
         function switchMode() {
           var body = document.body;
           if(body.style.background=="black") {
@@ -488,11 +491,14 @@ const datetime = currentdate.today() + " " + currentdate.timeNow();
         }
           else {
             container.style.background="black";
+            
           }
 
           var chat = document.querySelector(".chat");
           if(chat.style.background=="black") {
-          chat.style.background="white";
+          chat.style.backgroundImage = "url('Login_img.jpeg')";;
+          chat.style.backgroundRepeat = "repeat";
+          chat.style.backgroundSize = "50%";
         }
           else {
             chat.style.background="black";
@@ -512,8 +518,8 @@ const datetime = currentdate.today() + " " + currentdate.timeNow();
         }
           else {
             discussionSearch.style.background="black";
-          }
-        }
+          }
+        }
       </script>
     </div>
   </div>

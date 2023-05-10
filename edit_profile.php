@@ -162,9 +162,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                             <p class="mb-0"><?php echo $username ?></p>
                                                             <div class="text-muted"><small>Last Online : <?php echo $date . " - " . $time ?></small></div>
                                                             
-                                                            <div class="col d-flex justify-content-end">
-                                                                <button class="btn btn-primary" type="submit">Save Changes</button>
-                                                            </div>
+                                                            
                                                             
                                                         </div>
                                                         <!-- <div class="text-center text-sm-right">
@@ -268,7 +266,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                         </div>
                                                     </div> -->
                                                 </div>
-                                                
+                                                <div class="col d-flex justify-content-end">
+                                                                <button class="btn btn-primary" type="submit">Save Changes</button>
+                                                </div>
                                             </form>
 
                                         </div>

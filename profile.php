@@ -3,7 +3,7 @@
 session_start();
 if (!isset($_SESSION['is_logged_in'])) {
     echo "<script> window.alert('You are not logged in.'); 
-    window.location='login.php'; </script>";
+    window.location='index.php'; </script>";
     exit();
 }
 
@@ -76,26 +76,27 @@ if($username == "NULL")
         
             <h3> <?php echo $fullname ?> <i class="fa-solid fa-circle fa-xs" style="color: <?php echo $color ?>;"></i>  </h3>
 
-            <!--<h6><?php echo $username ?></h6> -->
+            <h6><?php echo $username ?></h6> 
 	    <p><?php echo $date . " - " . $time ?></p>
     </div>
     </div>
 
         <div class="buttons">
-            <!--<form action="add_chat.php" method="POST" style="display: inline;">-->
-            <button class="primary" onclick="window.location.href='home.php'"   <?php if($username != $_SESSION["user_logged_in"]) echo "disabled"; ?> >
-            <i class="fa fa-home" aria-hidden="true"></i>
-            <?php echo "Home"?>        
+        <form action="add_chat.php" method="POST" style="display: inline;">
+            <button class="primary" type="submit" name="to_username" value="<?php echo $username; ?>" <?php if($username == $_SESSION["user_logged_in"]) echo "disabled"; ?>>
+                Message
             </button>
-            <!--</form>-->
+            </form>
             <button class="primary ghost" onclick="window.location.href='edit_profile.php'" <?php if($username != $_SESSION["user_logged_in"]) echo "disabled"; ?>>
             <i class="fa fa-edit" aria-hidden="true"></i>
             <?php echo "Edit Profile"?> 
             </button>
             </div>
         <div class="skills">
-            <h6>ABOUT</h6>
+            <div class="col">
+             <h6><?php echo"ABOUT"?></h6>
             <ul>
+                <br>
                 <li>
                     <!-- Hello, my name is Adarsh Kumar
 I am a third year student doing Btech in computer science and enginering at iit patna.
@@ -111,6 +112,7 @@ My interest lies in doing competetive programming  and i have been doing it for 
 			<li>React</li>
 			<li>Node</li> -->
             </ul>
+           </div>
         </div>
     </div>
 

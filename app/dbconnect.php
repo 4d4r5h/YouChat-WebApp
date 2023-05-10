@@ -39,4 +39,5 @@ if (!mysqli_query($conn, $sql)) {
     die("Error creating table: " . mysqli_error($conn));
 }
 
+
 ?>
